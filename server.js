@@ -26,11 +26,16 @@ app.use(
     path.join(path.dirname(fileURLToPath(import.meta.url)), 'public')
   )
 )
-app.use('/skills', skillsRouter)
 
 // mount imported routes
 app.use('/', indexRouter)
-app.use('/users', skillsRouter)
+app.use('/skills', skillsRouter)
+
+app.use(function(req, res, next) {
+  console.log('Hello SEI!')
+  req.time = new Date().toLocaleTimeString()
+  next()
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
